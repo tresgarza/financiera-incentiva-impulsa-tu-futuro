@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
+import Script from "next/script"
 import { ArrowRight, TrendingUp, Shield, Users, Sparkles, CheckCircle, ChevronRight, Building2, CreditCard, Instagram } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -305,9 +306,9 @@ export default function Home() {
 
             <div className="max-w-6xl mx-auto">
               <div className="bg-white rounded-2xl shadow-lg p-4 md:p-8 border-2 border-[#10b981]/20">
-                <script 
+                <Script 
                   src="https://assets.juicer.io/embed.js" 
-                  type="text/javascript"
+                  strategy="lazyOnload"
                 />
                 <link 
                   href="https://assets.juicer.io/embed.css" 
