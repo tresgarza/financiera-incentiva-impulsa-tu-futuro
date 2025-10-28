@@ -8,11 +8,6 @@ import { Toaster } from "@/components/ui/sonner";
 export const metadata: Metadata = {
   title: "Financiera Incentiva | Crédito Vía Nómina 100% Digital",
   description: "Soluciones financieras ágiles, seguras y transparentes. Crédito vía nómina sin aval y sin consultar buró. Respuesta en 48 horas.",
-  icons: {
-    icon: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/FLECHA_WEBSITEICON_FINCENTIVA-1761671432280.png",
-    shortcut: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/FLECHA_WEBSITEICON_FINCENTIVA-1761671432280.png",
-    apple: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/FLECHA_WEBSITEICON_FINCENTIVA-1761671432280.png",
-  },
   openGraph: {
     title: "Financiera Incentiva | Tu Crédito Vía Nómina en 48 Horas ⚡",
     description: "💰 Crédito sin aval, sin buró | 🚀 Respuesta inmediata | ✅ 15 años de confianza | 14+ mil mexicanos ya confían en nosotros",
