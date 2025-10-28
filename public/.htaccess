@@ -1,0 +1,39 @@
+# Next.js en hosting Apache
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Permitir acceso a archivos estáticos
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  
+  # Redirigir todo a index.html para Next.js
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Permitir CORS
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+  Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+  Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+</IfModule>
+
+# Configurar tipos MIME correctos
+<IfModule mod_mime.c>
+  AddType application/javascript .js
+  AddType text/css .css
+  AddType image/svg+xml .svg
+  AddType application/json .json
+</IfModule>
+
+# Habilitar compresión
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Permisos correctos
+Options -Indexes
+Options +FollowSymLinks
+
+# Prevenir listado de directorios
+DirectoryIndex index.html index.php
