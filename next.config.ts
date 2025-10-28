@@ -5,11 +5,9 @@ const LOADER = path.resolve(__dirname, 'src/visual-edits/component-tagger-loader
 
 
 const nextConfig: NextConfig = {
-  output: 'export',
   images: {
     unoptimized: true,
   },
-  trailingSlash: true,
   turbopack: {
     rules: {
       "*.{jsx,tsx}": {
