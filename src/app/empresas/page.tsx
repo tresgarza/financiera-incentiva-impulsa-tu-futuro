@@ -226,7 +226,7 @@ export default function EmpresasPage() {
         {/* Beneficios para la Empresa Afiliada */}
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="text-center max-w-3xl mx-auto mb-16 observe-animation opacity-0">
               <h2 className="text-3xl md:text-5xl font-bold mb-4">
                 Beneficios para la Empresa Afiliada
               </h2>
@@ -253,12 +253,16 @@ export default function EmpresasPage() {
                   description: "Nos coordinamos directamente con tu área de Recursos Humanos para gestionar los descuentos vía nómina de forma segura."
                 }
               ].map((benefit, index) => (
-                <Card key={index} className="border-2 hover:border-[#10b981] transition-all duration-300 hover:shadow-lg">
+                <Card 
+                  key={index} 
+                  className="border-2 hover:border-[#10b981] transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 observe-animation opacity-0 group"
+                  style={{ animationDelay: `${index * 150}ms` }}
+                >
                   <CardContent className="p-8">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center mb-6">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
                       <benefit.icon className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3">{benefit.title}</h3>
+                    <h3 className="text-xl font-bold mb-3 group-hover:text-[#10b981] transition-colors duration-300">{benefit.title}</h3>
                     <p className="text-gray-600">{benefit.description}</p>
                   </CardContent>
                 </Card>
@@ -270,7 +274,7 @@ export default function EmpresasPage() {
         {/* Requisitos para Afiliar */}
         <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="text-center max-w-3xl mx-auto mb-16 observe-animation opacity-0">
               <h2 className="text-3xl md:text-5xl font-bold mb-4">
                 Requisitos para Afiliar tu Empresa
               </h2>
@@ -280,9 +284,9 @@ export default function EmpresasPage() {
             </div>
 
             <div className="max-w-4xl mx-auto">
-              <Card className="border-2 border-[#10b981]">
+              <Card className="border-2 border-[#10b981] hover:shadow-2xl transition-shadow duration-500 observe-animation opacity-0 group">
                 <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold mb-6">Documentos Requeridos:</h3>
+                  <h3 className="text-2xl font-bold mb-6 group-hover:text-[#10b981] transition-colors duration-300">Documentos Requeridos:</h3>
                   <div className="space-y-4">
                     {[
                       "Acta Constitutiva y Poder Notarial del representante legal",
@@ -293,8 +297,8 @@ export default function EmpresasPage() {
                       "Datos bancarios para referencia (no se cargan fondos)",
                       "Firmas del convenio y anexos"
                     ].map((req, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <CheckCircle2 className="h-6 w-6 text-[#10b981] flex-shrink-0 mt-1" />
+                      <div key={index} className="flex items-start gap-3 group/item hover:translate-x-2 transition-transform duration-300">
+                        <CheckCircle2 className="h-6 w-6 text-[#10b981] flex-shrink-0 mt-1 group-hover/item:scale-110 transition-transform duration-300" />
                         <p className="text-gray-700">{req}</p>
                       </div>
                     ))}
@@ -308,7 +312,7 @@ export default function EmpresasPage() {
         {/* Cómo Funciona el Esquema */}
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="text-center max-w-3xl mx-auto mb-16 observe-animation opacity-0">
               <h2 className="text-3xl md:text-5xl font-bold mb-4">
                 Cómo Funciona el Esquema de Crédito Vía Nómina
               </h2>
@@ -355,12 +359,16 @@ export default function EmpresasPage() {
                   description: "Una vez liquidado el crédito, Fincentiva notifica a Recursos Humanos para detener los descuentos."
                 }
               ].map((item, index) => (
-                <div key={index} className="flex gap-6 items-start">
-                  <div className="flex-shrink-0 w-16 h-16 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                <div 
+                  key={index} 
+                  className="flex gap-6 items-start group hover:translate-x-2 transition-transform duration-300 observe-animation opacity-0"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className="flex-shrink-0 w-16 h-16 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center text-white text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300">
                     {item.step}
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
+                    <h3 className="text-2xl font-bold mb-2 group-hover:text-[#10b981] transition-colors duration-300">{item.title}</h3>
                     <p className="text-gray-600">{item.description}</p>
                   </div>
                 </div>
@@ -372,7 +380,7 @@ export default function EmpresasPage() {
         {/* Responsabilidades de la Empresa */}
         <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="text-center max-w-3xl mx-auto mb-16 observe-animation opacity-0">
               <h2 className="text-3xl md:text-5xl font-bold mb-4">
                 Responsabilidades de la Empresa Afiliada
               </h2>
@@ -381,8 +389,8 @@ export default function EmpresasPage() {
               </p>
             </div>
 
-            <div className="max-w-5xl mx-auto">
-              <Card className="border-2">
+            <div className="max-w-5xl mx-auto observe-animation opacity-0" style={{ animationDelay: '200ms' }}>
+              <Card className="border-2 hover:shadow-2xl transition-shadow duration-500">
                 <CardContent className="p-0 overflow-x-auto">
                   <table className="w-full">
                     <thead className="bg-gradient-to-r from-[#10b981] to-[#047857] text-white">
@@ -414,8 +422,8 @@ export default function EmpresasPage() {
                           desc: "La empresa NO responde por adeudos de los empleados ni funge como garante."
                         }
                       ].map((row, index) => (
-                        <tr key={index} className="hover:bg-gray-50">
-                          <td className="px-6 py-4 font-semibold">{row.title}</td>
+                        <tr key={index} className="hover:bg-gray-50 transition-colors duration-200">
+                          <td className="px-6 py-4 font-semibold hover:text-[#10b981] transition-colors duration-300">{row.title}</td>
                           <td className="px-6 py-4 text-gray-600">{row.desc}</td>
                         </tr>
                       ))}
@@ -431,7 +439,7 @@ export default function EmpresasPage() {
         <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-12">
+              <div className="text-center mb-12 observe-animation opacity-0">
                 <h2 className="text-3xl md:text-5xl font-bold mb-4">
                   Calcule el Impacto Positivo
                 </h2>
@@ -440,7 +448,7 @@ export default function EmpresasPage() {
                 </p>
               </div>
 
-              <Card className="border-2 border-[#10b981]">
+              <Card className="border-2 border-[#10b981] hover:shadow-2xl transition-shadow duration-500 observe-animation opacity-0" style={{ animationDelay: '200ms' }}>
                 <CardContent className="p-8">
                   <div className="space-y-8">
                     <div>
@@ -453,7 +461,7 @@ export default function EmpresasPage() {
                         max="5000" 
                         value={empleados}
                         onChange={(e) => setEmpleados(Number(e.target.value))}
-                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#10b981]"
+                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#10b981] hover:h-3 transition-all duration-300"
                       />
                       <div className="flex justify-between text-xs text-gray-500 mt-1">
                         <span>50</span>
@@ -471,7 +479,7 @@ export default function EmpresasPage() {
                         max="20" 
                         value={productividad}
                         onChange={(e) => setProductividad(Number(e.target.value))}
-                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#10b981]"
+                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#10b981] hover:h-3 transition-all duration-300"
                       />
                       <div className="flex justify-between text-xs text-gray-500 mt-1">
                         <span>1%</span>
@@ -479,7 +487,7 @@ export default function EmpresasPage() {
                       </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-[#10b981] to-[#047857] text-white p-8 rounded-lg text-center">
+                    <div className="bg-gradient-to-br from-[#10b981] to-[#047857] text-white p-8 rounded-lg text-center hover:scale-105 transition-transform duration-300 shadow-lg">
                       <p className="text-sm uppercase tracking-wide mb-2">Retorno Anual Estimado</p>
                       <p className="text-4xl md:text-5xl font-bold mb-2">
                         {roi.toLocaleString('es-MX', {
@@ -501,7 +509,7 @@ export default function EmpresasPage() {
         <section id="contacto" className="py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
-              <div className="text-center mb-12">
+              <div className="text-center mb-12 observe-animation opacity-0">
                 <h2 className="text-3xl md:text-5xl font-bold mb-4">
                   Contacto para Afiliaciones
                 </h2>
@@ -511,17 +519,17 @@ export default function EmpresasPage() {
                 
                 <div className="bg-gradient-to-r from-[#10b981]/10 to-[#047857]/10 p-6 rounded-lg mb-8">
                   <div className="space-y-2 text-sm">
-                    <p><strong>Correo:</strong> <a href="mailto:digital@fincentiva.com.mx" className="text-[#047857] hover:underline">digital@fincentiva.com.mx</a></p>
-                    <p><strong>WhatsApp:</strong> <a href="https://wa.me/528119803808" className="text-[#047857] hover:underline">+52 81 1980 3808</a></p>
-                    <p><strong>Llamada/Oficina:</strong> <a href="tel:8182180477" className="text-[#047857] hover:underline">81 8218 0477</a></p>
+                    <p><strong>Correo:</strong> <a href="mailto:digital@fincentiva.com.mx" className="text-[#047857] hover:underline hover:text-[#10b981] transition-colors duration-300">digital@fincentiva.com.mx</a></p>
+                    <p><strong>WhatsApp:</strong> <a href="https://wa.me/528119803808" className="text-[#047857] hover:underline hover:text-[#10b981] transition-colors duration-300">+52 81 1980 3808</a></p>
+                    <p><strong>Llamada/Oficina:</strong> <a href="tel:8182180477" className="text-[#047857] hover:underline hover:text-[#10b981] transition-colors duration-300">81 8218 0477</a></p>
                     <p><strong>Horarios de Atención:</strong> Lunes a Viernes 9:00 AM a 5:00 PM</p>
                     <p><strong>Dirección:</strong> San Antonio 2340, Col. Lomas de San Francisco, Monterrey, N.L.</p>
-                    <p><strong>Página:</strong> <a href="https://www.fincentiva.com.mx" className="text-[#047857] hover:underline">www.fincentiva.com.mx</a></p>
+                    <p><strong>Página:</strong> <a href="https://www.fincentiva.com.mx" className="text-[#047857] hover:underline hover:text-[#10b981] transition-colors duration-300">www.fincentiva.com.mx</a></p>
                   </div>
                 </div>
               </div>
 
-              <Card className="border-2">
+              <Card className="border-2 hover:shadow-2xl transition-shadow duration-500 observe-animation opacity-0" style={{ animationDelay: '200ms' }}>
                 <CardContent className="p-8">
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
@@ -535,6 +543,7 @@ export default function EmpresasPage() {
                         onChange={handleInputChange}
                         required
                         disabled={isSubmitting}
+                        className="hover:border-[#10b981] transition-colors duration-300"
                       />
                     </div>
 
@@ -549,6 +558,7 @@ export default function EmpresasPage() {
                         onChange={handleInputChange}
                         required
                         disabled={isSubmitting}
+                        className="hover:border-[#10b981] transition-colors duration-300"
                       />
                     </div>
 
@@ -564,6 +574,7 @@ export default function EmpresasPage() {
                         onChange={handleInputChange}
                         required
                         disabled={isSubmitting}
+                        className="hover:border-[#10b981] transition-colors duration-300"
                       />
                     </div>
 
@@ -579,6 +590,7 @@ export default function EmpresasPage() {
                         onChange={handleInputChange}
                         required
                         disabled={isSubmitting}
+                        className="hover:border-[#10b981] transition-colors duration-300"
                       />
                     </div>
 
@@ -593,13 +605,14 @@ export default function EmpresasPage() {
                         value={formData.mensaje}
                         onChange={handleInputChange}
                         disabled={isSubmitting}
+                        className="hover:border-[#10b981] transition-colors duration-300"
                       />
                     </div>
 
                     <Button 
                       type="submit" 
                       size="lg" 
-                      className="w-full bg-gradient-to-r from-[#10b981] to-[#047857] hover:from-[#059669] hover:to-[#065f46]"
+                      className="w-full bg-gradient-to-r from-[#10b981] to-[#047857] hover:from-[#059669] hover:to-[#065f46] hover:scale-105 hover:shadow-xl transition-all duration-300"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? "Enviando..." : "Enviar Solicitud"}
@@ -608,8 +621,8 @@ export default function EmpresasPage() {
                 </CardContent>
               </Card>
 
-              <div className="mt-12 text-center">
-                <div className="bg-gradient-to-r from-[#10b981] to-[#047857] text-white p-8 rounded-lg">
+              <div className="mt-12 text-center observe-animation opacity-0" style={{ animationDelay: '400ms' }}>
+                <div className="bg-gradient-to-r from-[#10b981] to-[#047857] text-white p-8 rounded-lg hover:shadow-2xl transition-shadow duration-500">
                   <h3 className="text-2xl font-bold mb-3">Fincentiva: tu aliado financiero en Recursos Humanos</h3>
                   <p className="text-lg italic opacity-90">
                     "Apoyamos a tus colaboradores, fortalecemos el clima laboral y cuidamos la tranquilidad financiera de tu empresa."

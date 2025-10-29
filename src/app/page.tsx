@@ -155,7 +155,7 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
-                { value: counts.credits, suffix: "K+", label: "Créditos Otorgados" },
+                { value: counts.credits.toLocaleString(), suffix: "+", label: "Créditos Otorgados" },
                 { value: counts.dispersed, suffix: "M+", label: "Millones Dispersados", prefix: "$" },
                 { value: counts.years, suffix: "+", label: "Años de Experiencia" },
                 { value: counts.satisfaction, suffix: "%", label: "Satisfacción" },
