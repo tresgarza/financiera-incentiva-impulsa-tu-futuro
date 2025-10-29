@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { Car, Shield, Clock, DollarSign, FileText, CheckCircle, Building2, TrendingUp, Phone, Mail, MapPin, Globe, Calculator } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -7,6 +8,28 @@ import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 
 export default function AutosPage() {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    setIsVisible(true)
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up')
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const elements = document.querySelectorAll('.observe-animation')
+    elements.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [])
+
   const handleSimuladorClick = () => {
     window.open("https://autos.fincentiva.com.mx", "_blank", "noopener,noreferrer")
   }
@@ -17,9 +40,14 @@ export default function AutosPage() {
       <main className="min-h-screen">
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-gradient-to-br from-[#10b981] via-[#059669] to-[#047857] text-white">
+          {/* Animated effects */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-shimmer" />
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2083')] bg-cover bg-center opacity-10" />
+          <div className="absolute top-20 left-10 w-72 h-72 bg-white/5 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-float-delayed" />
+          
           <div className="container relative mx-auto px-4 py-24 md:py-32">
-            <div className="max-w-4xl mx-auto text-center space-y-6">
+            <div className={`max-w-4xl mx-auto text-center space-y-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full mb-4">
                 <Car className="h-5 w-5" />
                 <span className="font-semibold">Crédito Automotriz</span>
@@ -38,7 +66,7 @@ export default function AutosPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                 <Button 
                   size="lg" 
-                  className="bg-white text-[#047857] hover:bg-gray-100 font-semibold text-lg px-8 py-6"
+                  className="bg-white text-[#047857] hover:bg-gray-100 hover:scale-105 font-semibold text-lg px-8 py-6 transition-all duration-300 shadow-lg hover:shadow-xl"
                   onClick={handleSimuladorClick}
                 >
                   <Calculator className="mr-2 h-5 w-5" />
@@ -53,7 +81,7 @@ export default function AutosPage() {
         {/* Por qué elegir Fincentiva */}
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="text-center max-w-3xl mx-auto mb-16 observe-animation opacity-0">
               <h2 className="text-3xl md:text-5xl font-bold mb-4">
                 ¿Por qué elegir Fincentiva?
               </h2>
@@ -61,7 +89,7 @@ export default function AutosPage() {
 
             {/* Para Clientes */}
             <div className="max-w-6xl mx-auto mb-12">
-              <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">Para clientes:</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center observe-animation opacity-0">Para clientes:</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
                   { icon: DollarSign, title: "Hasta el 70% de financiamiento", desc: "Del valor del vehículo" },
@@ -71,12 +99,16 @@ export default function AutosPage() {
                   { icon: FileText, title: "Proceso digital", desc: "Cotiza, aplica y firma en línea" },
                   { icon: CheckCircle, title: "Sin aval ni intermediarios", desc: "Proceso directo y transparente" }
                 ].map((benefit, index) => (
-                  <Card key={index} className="border-2 hover:border-[#10b981] transition-all duration-300">
+                  <Card 
+                    key={index} 
+                    className="border-2 hover:border-[#10b981] transition-all duration-500 hover:shadow-xl hover:-translate-y-2 observe-animation opacity-0 group"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
                     <CardContent className="p-6">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center mb-4">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
                         <benefit.icon className="h-6 w-6 text-white" />
                       </div>
-                      <h4 className="font-bold mb-2">{benefit.title}</h4>
+                      <h4 className="font-bold mb-2 group-hover:text-[#10b981] transition-colors duration-300">{benefit.title}</h4>
                       <p className="text-sm text-gray-600">{benefit.desc}</p>
                     </CardContent>
                   </Card>
@@ -86,19 +118,23 @@ export default function AutosPage() {
 
             {/* Para Agencias */}
             <div className="max-w-6xl mx-auto">
-              <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">Para agencias:</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center observe-animation opacity-0">Para agencias:</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[
                   { icon: TrendingUp, title: "Aumenta tus ventas", desc: "Ofrece crédito directo a tus clientes" },
                   { icon: Clock, title: "Proceso ágil", desc: "Sin riesgo financiero" },
                   { icon: Building2, title: "Acompañamiento personalizado", desc: "Para tus vendedores" }
                 ].map((benefit, index) => (
-                  <Card key={index} className="border-2 hover:border-[#10b981] transition-all duration-300">
+                  <Card 
+                    key={index} 
+                    className="border-2 hover:border-[#10b981] transition-all duration-500 hover:shadow-xl hover:-translate-y-2 observe-animation opacity-0 group"
+                    style={{ animationDelay: `${(index + 6) * 100}ms` }}
+                  >
                     <CardContent className="p-6">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center mb-4">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
                         <benefit.icon className="h-6 w-6 text-white" />
                       </div>
-                      <h4 className="font-bold mb-2">{benefit.title}</h4>
+                      <h4 className="font-bold mb-2 group-hover:text-[#10b981] transition-colors duration-300">{benefit.title}</h4>
                       <p className="text-sm text-gray-600">{benefit.desc}</p>
                     </CardContent>
                   </Card>

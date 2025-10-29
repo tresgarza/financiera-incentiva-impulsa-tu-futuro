@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
+import { useEffect, useState } from "react"
 import { CreditCard, Car, Home, Plane, GraduationCap, CheckCircle, ArrowRight, FileText, DollarSign, Clock, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -9,15 +10,41 @@ import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 
 export default function ColaboradoresPage() {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    setIsVisible(true)
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up')
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const elements = document.querySelectorAll('.observe-animation')
+    elements.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [])
   return (
     <>
       <Header />
       <main className="min-h-screen">
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-gradient-to-br from-[#10b981] via-[#059669] to-[#047857] text-white">
+          {/* Animated effects */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-shimmer" />
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=2070')] bg-cover bg-center opacity-10" />
+          <div className="absolute top-20 left-10 w-72 h-72 bg-white/5 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-float-delayed" />
+          
           <div className="container relative mx-auto px-4 py-24 md:py-32">
-            <div className="max-w-4xl mx-auto text-center space-y-6">
+            <div className={`max-w-4xl mx-auto text-center space-y-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
                 Tu bienestar financiero, a solo unos clics
               </h1>
@@ -26,12 +53,12 @@ export default function ColaboradoresPage() {
               </p>
               <Button 
                 size="lg" 
-                className="bg-white text-[#047857] hover:bg-gray-100 text-lg px-8"
+                className="bg-white text-[#047857] hover:bg-gray-100 hover:scale-105 text-lg px-8 transition-all duration-300 shadow-lg hover:shadow-xl"
                 asChild
               >
                 <Link href="https://credito.fincentiva.com.mx" target="_blank" rel="noopener noreferrer">
                   Solicita tu Crédito Ahora
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
             </div>
@@ -42,7 +69,7 @@ export default function ColaboradoresPage() {
         {/* Nuestras Soluciones */}
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="text-center max-w-3xl mx-auto mb-16 observe-animation opacity-0">
               <h2 className="text-3xl md:text-5xl font-bold mb-4">
                 Nuestras Soluciones para Ti
               </h2>
@@ -70,23 +97,27 @@ export default function ColaboradoresPage() {
                   buttonText: "Consultar Planes"
                 }
               ].map((solution, index) => (
-                <Card key={index} className="border-2 hover:border-[#10b981] transition-all duration-300">
+                <Card 
+                  key={index} 
+                  className="border-2 hover:border-[#10b981] transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 observe-animation opacity-0"
+                  style={{ animationDelay: `${index * 150}ms` }}
+                >
                   <CardContent className="p-8">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center mb-6">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
                       <solution.icon className="h-8 w-8 text-white" />
                     </div>
                     <h3 className="text-2xl font-bold mb-3">{solution.title}</h3>
                     <p className="text-gray-600 mb-6">{solution.description}</p>
                     <ul className="space-y-2 mb-6">
                       {solution.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-sm">
-                          <CheckCircle className="h-4 w-4 text-[#10b981] mr-2" />
-                          {feature}
+                        <li key={idx} className="flex items-center text-sm group/item">
+                          <CheckCircle className="h-4 w-4 text-[#10b981] mr-2 group-hover/item:scale-125 transition-transform duration-300" />
+                          <span className="group-hover/item:translate-x-1 transition-transform duration-300">{feature}</span>
                         </li>
                       ))}
                     </ul>
                     <Button 
-                      className="w-full bg-gradient-to-r from-[#10b981] to-[#047857] hover:from-[#059669] hover:to-[#065f46]"
+                      className="w-full bg-gradient-to-r from-[#10b981] to-[#047857] hover:from-[#059669] hover:to-[#065f46] hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg"
                       asChild
                     >
                       <Link href={solution.link} target="_blank" rel="noopener noreferrer">
@@ -103,7 +134,7 @@ export default function ColaboradoresPage() {
         {/* Requisitos para Solicitar Crédito */}
         <section className="py-20 bg-gradient-to-b from-white to-gray-50">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="text-center max-w-3xl mx-auto mb-16 observe-animation opacity-0">
               <h2 className="text-3xl md:text-5xl font-bold mb-4">
                 Requisitos para Solicitar Crédito
               </h2>
@@ -112,13 +143,13 @@ export default function ColaboradoresPage() {
               </p>
             </div>
 
-            <div className="max-w-5xl mx-auto">
-              <Card className="border-2 border-[#10b981] shadow-lg">
+            <div className="max-w-5xl mx-auto observe-animation opacity-0">
+              <Card className="border-2 border-[#10b981] shadow-lg hover:shadow-2xl transition-shadow duration-300">
                 <CardContent className="p-8 md:p-12">
                   <div className="space-y-8">
                     {/* Registro */}
-                    <div className="flex gap-4 items-start">
-                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center">
+                    <div className="flex gap-4 items-start group hover:translate-x-2 transition-transform duration-300">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md">
                         <Users className="h-6 w-6 text-white" />
                       </div>
                       <div>
@@ -129,7 +160,7 @@ export default function ColaboradoresPage() {
                             href="https://credito.fincentiva.com.mx" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-[#10b981] font-semibold hover:underline"
+                            className="text-[#10b981] font-semibold hover:underline hover:text-[#047857] transition-colors"
                           >
                             credito.fincentiva.com.mx
                           </Link>
@@ -139,8 +170,8 @@ export default function ColaboradoresPage() {
                     </div>
 
                     {/* Simular */}
-                    <div className="flex gap-4 items-start">
-                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center">
+                    <div className="flex gap-4 items-start group hover:translate-x-2 transition-transform duration-300">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md">
                         <DollarSign className="h-6 w-6 text-white" />
                       </div>
                       <div>
@@ -152,8 +183,8 @@ export default function ColaboradoresPage() {
                     </div>
 
                     {/* Documentación */}
-                    <div className="flex gap-4 items-start">
-                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center">
+                    <div className="flex gap-4 items-start group hover:translate-x-2 transition-transform duration-300">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md">
                         <FileText className="h-6 w-6 text-white" />
                       </div>
                       <div>
@@ -166,9 +197,9 @@ export default function ColaboradoresPage() {
                             "Recibos de nómina del último mes",
                             "2 referencias personales"
                           ].map((doc, idx) => (
-                            <li key={idx} className="flex items-start text-gray-600">
-                              <CheckCircle className="h-5 w-5 text-[#10b981] mr-2 flex-shrink-0 mt-0.5" />
-                              <span>{doc}</span>
+                            <li key={idx} className="flex items-start text-gray-600 group/item">
+                              <CheckCircle className="h-5 w-5 text-[#10b981] mr-2 flex-shrink-0 mt-0.5 group-hover/item:scale-125 transition-transform duration-300" />
+                              <span className="group-hover/item:translate-x-1 transition-transform duration-300">{doc}</span>
                             </li>
                           ))}
                         </ul>
@@ -184,7 +215,7 @@ export default function ColaboradoresPage() {
         {/* Condiciones Financieras */}
         <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="text-center max-w-3xl mx-auto mb-16 observe-animation opacity-0">
               <h2 className="text-3xl md:text-5xl font-bold mb-4">
                 Condiciones Financieras
               </h2>
@@ -220,13 +251,17 @@ export default function ColaboradoresPage() {
                   icon: Users
                 }
               ].map((condition, index) => (
-                <Card key={index} className="border-2 hover:border-[#10b981] transition-all duration-300">
+                <Card 
+                  key={index} 
+                  className="border-2 hover:border-[#10b981] transition-all duration-500 hover:shadow-lg hover:-translate-y-1 observe-animation opacity-0 group"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
                   <CardContent className="p-6 text-center">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center mb-4 mx-auto">
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center mb-4 mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-md">
                       <condition.icon className="h-7 w-7 text-white" />
                     </div>
                     <h3 className="text-lg font-bold mb-2 text-gray-800">{condition.title}</h3>
-                    <p className="text-2xl font-bold text-[#10b981] mb-2">{condition.value}</p>
+                    <p className="text-2xl font-bold text-[#10b981] mb-2 group-hover:scale-110 transition-transform duration-300">{condition.value}</p>
                     <p className="text-sm text-gray-600">{condition.description}</p>
                   </CardContent>
                 </Card>
@@ -307,7 +342,7 @@ export default function ColaboradoresPage() {
         <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-              <div>
+              <div className="observe-animation opacity-0">
                 <h2 className="text-3xl md:text-5xl font-bold mb-6">
                   Tu Futuro Empieza Hoy
                 </h2>
@@ -321,13 +356,14 @@ export default function ColaboradoresPage() {
                   Olvídate de procesos complicados y burocracia. Con nosotros, tienes el control de tus finanzas al alcance de tu mano.
                 </p>
               </div>
-              <div className="relative">
+              <div className="relative observe-animation opacity-0">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#10b981]/20 to-transparent rounded-2xl blur-2xl" />
                 <Image
                   src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/TRES-1761672133873.jpg?width=8000&height=8000&resize=contain"
                   alt="Equipo colaborando"
                   width={600}
                   height={500}
-                  className="rounded-2xl shadow-2xl"
+                  className="rounded-2xl shadow-2xl relative z-10 hover:scale-105 transition-transform duration-500"
                 />
               </div>
             </div>
@@ -337,7 +373,7 @@ export default function ColaboradoresPage() {
         {/* ¿Cuál es tu Próximo Proyecto? */}
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="text-center max-w-3xl mx-auto mb-16 observe-animation opacity-0">
               <h2 className="text-3xl md:text-5xl font-bold mb-4">
                 ¿Cuál es tu Próximo Proyecto?
               </h2>
@@ -369,12 +405,16 @@ export default function ColaboradoresPage() {
                   description: "Invierte en tu futuro o el de tus hijos. Paga una maestría, un diplomado o el curso que te ayudará a crecer."
                 }
               ].map((project, index) => (
-                <Card key={index} className="border-2 hover:border-[#10b981] transition-all duration-300 hover:-translate-y-2">
+                <Card 
+                  key={index} 
+                  className="border-2 hover:border-[#10b981] transition-all duration-500 hover:-translate-y-2 hover:shadow-xl observe-animation opacity-0 group"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
                   <CardContent className="p-6 text-center">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center mb-4 mx-auto">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center mb-4 mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
                       <project.icon className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3">{project.title}</h3>
+                    <h3 className="text-xl font-bold mb-3 group-hover:text-[#10b981] transition-colors duration-300">{project.title}</h3>
                     <p className="text-gray-600 text-sm">{project.description}</p>
                   </CardContent>
                 </Card>
@@ -433,8 +473,12 @@ export default function ColaboradoresPage() {
         </section>
 
         {/* CTA Final */}
-        <section className="py-20 bg-gradient-to-br from-[#10b981] to-[#047857] text-white">
-          <div className="container mx-auto px-4">
+        <section className="py-20 bg-gradient-to-br from-[#10b981] to-[#047857] text-white relative overflow-hidden">
+          {/* Animated background shapes */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-float-delayed" />
+          
+          <div className="container relative mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center space-y-6">
               <h2 className="text-3xl md:text-5xl font-bold">
                 ¿Listo para dar el siguiente paso?
@@ -444,12 +488,12 @@ export default function ColaboradoresPage() {
               </p>
               <Button 
                 size="lg" 
-                className="bg-white text-[#047857] hover:bg-gray-100 text-lg px-8"
+                className="bg-white text-[#047857] hover:bg-gray-100 hover:scale-105 text-lg px-8 transition-all duration-300 shadow-lg hover:shadow-xl"
                 asChild
               >
                 <Link href="https://credito.fincentiva.com.mx" target="_blank" rel="noopener noreferrer">
                   Solicitar Crédito Ahora
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
             </div>

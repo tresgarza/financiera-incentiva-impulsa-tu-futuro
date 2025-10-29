@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
+import { useEffect, useState } from "react"
 import { Shield, Users, Award, Lock, TrendingUp, Zap, FileText, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -9,10 +10,10 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
-import { useState } from "react"
 import { toast } from "sonner"
 
 export default function EmpresasPage() {
+  const [isVisible, setIsVisible] = useState(false)
   const [empleados, setEmpleados] = useState(250)
   const [productividad, setProductividad] = useState(5)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -23,6 +24,26 @@ export default function EmpresasPage() {
     telefono: "",
     mensaje: ""
   })
+
+  useEffect(() => {
+    setIsVisible(true)
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up')
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const elements = document.querySelectorAll('.observe-animation')
+    elements.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [])
   
   const calcularROI = () => {
     return empleados * (productividad / 100) * 15000
@@ -116,9 +137,14 @@ export default function EmpresasPage() {
       <main className="min-h-screen">
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-gradient-to-br from-[#10b981] via-[#059669] to-[#047857] text-white">
+          {/* Animated effects */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-shimmer" />
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070')] bg-cover bg-center opacity-10" />
+          <div className="absolute top-20 left-10 w-72 h-72 bg-white/5 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-float-delayed" />
+          
           <div className="container relative mx-auto px-4 py-24 md:py-32">
-            <div className="max-w-4xl mx-auto text-center space-y-6">
+            <div className={`max-w-4xl mx-auto text-center space-y-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
                 Afiliación Empresarial Fincentiva
               </h1>
@@ -127,7 +153,7 @@ export default function EmpresasPage() {
               </p>
               <Button 
                 size="lg" 
-                className="bg-white text-[#047857] hover:bg-gray-100 text-lg px-8"
+                className="bg-white text-[#047857] hover:bg-gray-100 hover:scale-105 text-lg px-8 transition-all duration-300 shadow-lg hover:shadow-xl"
                 onClick={handleSolicitarConvenio}
               >
                 Solicitar Convenio
@@ -140,7 +166,7 @@ export default function EmpresasPage() {
         {/* Empresas que Confían en Nosotros */}
         <section className="py-12 bg-white">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-8">
+            <div className="text-center mb-8 observe-animation opacity-0">
               <h2 className="text-2xl md:text-3xl font-bold mb-2">
                 Algunas de las empresas que confían en nosotros
               </h2>
@@ -149,8 +175,8 @@ export default function EmpresasPage() {
               </p>
             </div>
             
-            <div className="max-w-6xl mx-auto">
-              <Card className="border-2 border-[#10b981]/20 shadow-lg">
+            <div className="max-w-6xl mx-auto observe-animation opacity-0">
+              <Card className="border-2 border-[#10b981]/20 shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-gradient-to-br from-white to-gray-50/50">
                 <CardContent className="p-6">
                   <div className="space-y-2">
                     {/* Fila Superior - 6 logos */}
@@ -158,7 +184,7 @@ export default function EmpresasPage() {
                       {logos.slice(0, 6).map((logo, index) => (
                         <div 
                           key={index} 
-                          className="flex items-center justify-center p-3 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-105"
+                          className="flex items-center justify-center p-3 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 cursor-pointer"
                         >
                           <Image
                             src={logo.url}
@@ -177,7 +203,7 @@ export default function EmpresasPage() {
                       {logos.slice(6, 12).map((logo, index) => (
                         <div 
                           key={index} 
-                          className="flex items-center justify-center p-3 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-105"
+                          className="flex items-center justify-center p-3 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 cursor-pointer"
                         >
                           <Image
                             src={logo.url}
